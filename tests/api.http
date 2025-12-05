@@ -1,0 +1,34 @@
+### 建立第一筆報名
+POST http://localhost:3001/api/signup
+Content-Type: application/json
+
+{
+  "name": "新同學",
+  "email": "new@example.com",
+  "phone": "0911222333"
+}
+
+### 測試重複 email（應該 409）
+POST http://localhost:3001/api/signup
+Content-Type: application/json
+
+{
+  "name": "新同學2",
+  "email": "new@example.com",
+  "phone": "0911222444"
+}
+
+### 取得清單（含分頁）
+GET http://localhost:3001/api/signup?page=1&limit=10
+
+### 更新資料
+PATCH http://localhost:3001/api/signup/6932f615b71101e00fe73803
+Content-Type: application/json
+
+{
+  "phone": "0911000111",
+  "status": "confirmed"
+}
+
+### 刪除資料
+DELETE http://localhost:3001/api/signup/6932f615b71101e00fe73803
