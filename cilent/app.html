@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup App</title>
+  <style>
+    body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;max-width:920px;margin:40px auto;padding:0 16px}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .card{border:1px solid #ddd;border-radius:12px;padding:14px;margin:12px 0}
+    label{display:block;margin-top:10px}
+    input{width:100%;padding:10px;margin-top:6px}
+    button{padding:10px 14px;cursor:pointer}
+    .muted{color:#666}
+    .err{color:#b00020;white-space:pre-wrap}
+    .ok{color:#0b7a0b;white-space:pre-wrap}
+    ul{padding-left:18px}
+    li{margin:10px 0}
+    .pill{display:inline-block;padding:2px 8px;border:1px solid #ccc;border-radius:999px;font-size:12px;margin-left:8px}
+  </style>
+</head>
+<body>
+  <h1>報名系統</h1>
+
+  <div class="card">
+    <div class="row" style="align-items:center;justify-content:space-between">
+      <div>
+        <div><b>目前使用者：</b><span id="userText"></span></div>
+        <div class="muted">後端會依 role/ownerId 控制：學生只能看自己，admin 可看全部。</div>
+      </div>
+      <button id="btnLogout">Logout</button>
+    </div>
+    <div id="topMsg" class="err" role="alert"></div>
+  </div>
+
+  <div class="card">
+    <h2>新增報名</h2>
+    <form id="signupForm">
+      <div class="row">
+        <div style="flex:1;min-width:220px">
+          <label>姓名
+            <input id="name" required placeholder="王小明" />
+          </label>
+        </div>
+        <div style="flex:1;min-width:220px">
+          <label>Email
+            <input id="email" type="email" required placeholder="ming@example.com" />
+          </label>
+        </div>
+        <div style="flex:1;min-width:220px">
+          <label>電話
+            <input id="phone" required placeholder="0912345678" />
+          </label>
+        </div>
+      </div>
+      <button id="btnSubmit" type="submit">送出</button>
+      <div id="formMsg" class="err" role="alert"></div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="row" style="align-items:center;justify-content:space-between">
+      <h2 style="margin:0">報名列表</h2>
+      <button id="btnReload" type="button">重新載入</button>
+    </div>
+    <div id="listMsg" class="muted"></div>
+    <ul id="list"></ul>
+  </div>
+
+  <script src="./signup_form.js"></script>
+</body>
+</html>

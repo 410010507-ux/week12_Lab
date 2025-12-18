@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;max-width:720px;margin:40px auto;padding:0 16px}
+    label{display:block;margin-top:12px}
+    input{width:100%;padding:10px;margin-top:6px}
+    button{margin-top:14px;padding:10px 14px;cursor:pointer}
+    .muted{color:#666}
+    .err{color:#b00020;margin-top:12px;white-space:pre-wrap}
+    .ok{color:#0b7a0b;margin-top:12px;white-space:pre-wrap}
+  </style>
+</head>
+<body>
+  <h1>登入</h1>
+  <p class="muted">登入成功後會保存 token，才能操作受保護的 /api/signup。</p>
+
+  <form id="loginForm">
+    <label>Email
+      <input id="email" type="email" required autocomplete="email" placeholder="student@example.com" />
+    </label>
+    <label>Password
+      <input id="password" type="password" required autocomplete="current-password" placeholder="你的密碼" />
+    </label>
+    <button id="btnLogin" type="submit">Login</button>
+  </form>
+
+  <div id="msg" class="err" role="alert"></div>
+
+  <script src="./login.js"></script>
+</body>
+</html>

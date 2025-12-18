@@ -1,14 +1,14 @@
-// server/db.js
 import { MongoClient } from 'mongodb';
 
-const client = new MongoClient(process.env.MONGODB_URI);
+let client;
 let db;
 
-export async function connectDB() {
+export async function connectDB(uri = process.env.MONGODB_URI) {
   if (db) return db;
+  client = new MongoClient(uri);
   await client.connect();
-  db = client.db();            // URI 已指定 DB
-  console.log('[DB] Connected to MongoDB');
+  db = client.db(); // URI 已指定 DB
+  console.log('[DB] Connected');
   return db;
 }
 
@@ -17,8 +17,11 @@ export function getDB() {
   return db;
 }
 
-process.on('SIGINT', async () => {
-  await client.close();
-  console.log('\n[DB] Connection closed');
-  process.exit(0);
-});
+export function getCollection(name) {
+  return getDB().collection(name);
+}
+
+export async function closeDB() {
+  if (client) await client.close();
+  db = null;
+}

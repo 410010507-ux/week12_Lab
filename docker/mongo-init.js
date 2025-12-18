@@ -1,17 +1,21 @@
+db = db.getSiblingDB('week12');
+
 db.createUser({
-  user: 'week11-user',
-  pwd: 'week11-pass',
-  roles: [{ role: 'readWrite', db: 'week11' }]
+  user: 'week12-user',
+  pwd: 'week12-pass',
+  roles: [{ role: 'readWrite', db: 'week12' }]
 });
 
 db.createCollection('participants');
+db.participants.createIndex({ email: 1 }, { unique: true });
+db.participants.createIndex({ ownerId: 1 });
 
-db.participants.insertOne({
-  name: '示範學員',
-  email: 'demo@example.com',
-  phone: '0912345678',
+db.createCollection('users');
+db.users.createIndex({ email: 1 }, { unique: true });
+
+db.users.insertOne({
+  email: 'admin@example.com',
+  passwordHash: '<<<$2b$10$n8knKRIT5OWYgf1P3vWo7u3lbn1QS3BDW.Wl5XT.7SRgqOw1ZW2GO>>',
+  role: 'admin',
   createdAt: new Date()
 });
-
-// ★ 作業需求：email 唯一索引
-db.participants.createIndex({ email: 1 }, { unique: true });

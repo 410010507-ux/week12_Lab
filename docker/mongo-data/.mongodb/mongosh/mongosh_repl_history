@@ -1,0 +1,6 @@
+exit
+db.participants.getIndexes()
+db.users.getIndexes()
+db.users.findOne({ email: "admin@example.com" })
+show collections
+use week12

@@ -1,34 +1,57 @@
-### 建立第一筆報名
-POST http://localhost:3001/api/signup
+@baseUrl = http://localhost:3001
+@token = {{login.response.body.token}}
+@id = {{create.response.body.id}}
+
+### 0) 未登入被拒
+GET {{baseUrl}}/api/signup
+
+### 1) 登入 admin
+# @name login
+POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "name": "新同學",
-  "email": "new@example.com",
-  "phone": "0911222333"
+  "email": "admin@example.com",
+  "password": "AdminPass123"
 }
 
-### 測試重複 email（應該 409）
-POST http://localhost:3001/api/signup
+### 2) 用 studentA 註冊 + 登入
+# @name signupA
+POST {{baseUrl}}/auth/signup
 Content-Type: application/json
 
-{
-  "name": "新同學2",
-  "email": "new@example.com",
-  "phone": "0911222444"
-}
+{ "email": "a@example.com", "password": "Pass1234" }
 
-### 取得清單（含分頁）
-GET http://localhost:3001/api/signup?page=1&limit=10
-
-### 更新資料
-PATCH http://localhost:3001/api/signup/6932f615b71101e00fe73803
+# @name loginA
+POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
-{
-  "phone": "0911000111",
-  "status": "confirmed"
-}
+{ "email": "a@example.com", "password": "Pass1234" }
 
-### 刪除資料
-DELETE http://localhost:3001/api/signup/6932f615b71101e00fe73803
+### 3) studentA 建立一筆報名（ownerId = studentA）
+# @name create
+POST {{baseUrl}}/api/signup
+Authorization: Bearer {{loginA.response.body.token}}
+Content-Type: application/json
+
+{ "name": "A同學", "email": "a1@example.com", "phone": "0912345678" }
+
+### 4) studentB 企圖刪掉 A 的資料 → 權限不足
+# @name signupB
+POST {{baseUrl}}/auth/signup
+Content-Type: application/json
+
+{ "email": "b@example.com", "password": "Pass1234" }
+
+# @name loginB
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{ "email": "b@example.com", "password": "Pass1234" }
+
+DELETE {{baseUrl}}/api/signup/{{id}}
+Authorization: Bearer {{loginB.response.body.token}}
+
+### 5) admin 刪除成功
+DELETE {{baseUrl}}/api/signup/{{id}}
+Authorization: Bearer {{token}}

@@ -1,3 +1,5 @@
-server/node_modules/
-server/.env
-docker/mongo-data/
+@"
+node_modules/
+.env
+.env.*
+"@ | Out-File -Encoding utf8 .gitignore

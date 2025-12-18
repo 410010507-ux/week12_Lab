@@ -1,20 +1,30 @@
 {
-  "name": "week11-server",
+  "name": "week12-server",
   "version": "1.0.0",
   "description": "Week11 signup API server",
   "type": "module",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "cross-env NODE_ENV=test vitest run"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.0",
-    "express": "^4.19.0",
-    "mongodb": "^6.8.0"
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^6.21.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
-  }
+    "cross-env": "^10.1.0",
+    "mongodb-memory-server": "^11.0.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^7.1.4",
+    "vitest": "^4.0.16"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
